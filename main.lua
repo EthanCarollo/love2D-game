@@ -6,15 +6,21 @@ local AssetLoader = require("src.assets.AssetLoader")
 function love.load()
     GWindow:getInstance():setup()
     AssetLoader:getInstance():loadJson("data/assets.json")
+
+    shaderFile = love.filesystem.read('shader/testShader.glsl')
+    shader = love.graphics.newShader(shaderFile)
 end
 
 -- Update function, called every frame
 function love.update(dt)
-
+    shader:send('iResolution', { 1280, 720, 1 })
+    shader:send("iTime", love.timer.getTime())
 end
 
 -- Draw function, called every frame after update
 function love.draw()
-    GWrapper2D:getInstance():showImage(AssetLoader:getInstance():getImage("test"), 100, 100, 0, 0.1, 0.1)
+    love.graphics.setShader(shader)
+    GWrapper2D:getInstance():showImage(AssetLoader:getInstance():getImage("test"), 0, 0, 0, love.graphics.getWidth(), love.graphics.getHeight())
+    love.graphics.setShader()
     
 end

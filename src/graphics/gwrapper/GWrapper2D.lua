@@ -17,7 +17,7 @@ function GWrapper2D:loadImage(path)
 end
 
 function GWrapper2D:showImage(image, positionX, positionY, rotation, scaleX, scaleY)
-    self.delegate:showImage(image, positionX, positionY, rotation, scaleX, scaleY)
+    self.delegate:showImage(image, positionX, positionY, rotation, scaleX / image:getWidth(), scaleY / image:getHeight())
 end
 
 return GWrapper2D
