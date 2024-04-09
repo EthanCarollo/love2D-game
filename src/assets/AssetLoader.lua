@@ -22,7 +22,12 @@ function AssetLoader:loadImage(path)
     return GWrapper2D:getInstance():loadImage(path)
 end
 
-function AssetLoader:loadJson(path)
+function AssetLoader:loadShader(path)
+    shaderFile = love.filesystem.read(path)
+    return love.graphics.newShader(shaderFile)
+end
+
+function AssetLoader:loadImageJson(path)
     local contents, _ = love.filesystem.read(path) -- Read the file
     if contents == nil then
         return nil -- File not found or couldn't be read

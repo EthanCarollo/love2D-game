@@ -5,10 +5,8 @@ local AssetLoader = require("src.assets.AssetLoader")
 -- Load function, called once at the beginning of the game
 function love.load()
     GWindow:getInstance():setup()
-    AssetLoader:getInstance():loadJson("data/assets.json")
-
-    shaderFile = love.filesystem.read('shader/testShader.glsl')
-    shader = love.graphics.newShader(shaderFile)
+    AssetLoader:getInstance():loadImageJson("data/assets.json")
+    shader = AssetLoader:getInstance():loadShader('shader/testShader.glsl')
 end
 
 -- Update function, called every frame
