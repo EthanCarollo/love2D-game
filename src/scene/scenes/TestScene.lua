@@ -7,6 +7,7 @@ local TestScene = {}
 -- TestScene is a child of Scene
 function TestScene:new()
     newObj = Scene:new()
+    newObj.caca = "test"
     self.__index = self
     return setmetatable(newObj, self)
 end
