@@ -1,24 +1,22 @@
 local GWindow = require("src.graphics.gwindow.GWindow")
-local GWrapper2D = require("src.graphics.gwrapper.GWrapper2D")
 local AssetLoader = require("src.assets.AssetLoader")
+local SceneManager = require("src.scene.SceneManager")
+local TestScene = require("src.scene.scenes.TestScene")
 
 -- Load function, called once at the beginning of the game
 function love.load()
     GWindow:getInstance():setup()
     AssetLoader:getInstance():loadImageJson("data/assets.json")
-    shader = AssetLoader:getInstance():loadShader('shader/testShader.glsl')
+    SceneManager:getInstance():addScene(TestScene:new())
+    SceneManager:getInstance():setup()
 end
 
 -- Update function, called every frame
 function love.update(dt)
-    shader:send('iResolution', { 1280, 720, 1 })
-    shader:send("iTime", love.timer.getTime())
+    SceneManager:getInstance():update(dt)
 end
 
 -- Draw function, called every frame after update
 function love.draw()
-    love.graphics.setShader(shader)
-    GWrapper2D:getInstance():showImage(AssetLoader:getInstance():getImage("test"), 0, 0, 0, love.graphics.getWidth(), love.graphics.getHeight())
-    love.graphics.setShader()
-    
+    SceneManager:getInstance():draw()
 end
